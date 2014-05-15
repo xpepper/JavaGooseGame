@@ -16,47 +16,57 @@ public class GooseGameTest {
 
     @Test
     public void addsPlayerToGame() {
-        String result = game.addPlayer("Pippo");
+        Player pippo = new Player("Pippo");
+
+        String result = game.addPlayer(pippo);
 
         assertEquals("Giocatori: Pippo", result);
     }
 
     @Test
     public void addsTwoPlayersToGame() {
-        game.addPlayer("Pippo");
-        String result = game.addPlayer("Pluto");
+        game.addPlayer(new Player("Pippo"));
+        String result = game.addPlayer(new Player("Pluto"));
 
         assertEquals("Giocatori: Pippo, Pluto", result);
     }
 
     @Test
     public void cannotAddTwiceTheSamePlayerToGame() {
-        game.addPlayer("Pippo");
-        String result = game.addPlayer("Pippo");
+        game.addPlayer(new Player("Pippo"));
+        String result = game.addPlayer(new Player("Pippo"));
 
         assertEquals("Pippo: giocatore già presente", result);
     }
 
     @Test
     public void movesPlayerFromTheStartingPosition() throws Exception {
-        game.addPlayer("Pippo");
-        game.addPlayer("Pluto");
+        Player pippo = new Player("Pippo");
+        Player pluto = new Player("Pluto");
 
-        String result = game.movePlayer("Pippo", 4, 2);
+        game.addPlayer(pippo);
+        game.addPlayer(pluto);
+
+        String result = game.movePlayer(pippo, 4, 2);
         assertEquals("Pippo tira 4, 2. Pippo muove da Partenza a 6", result);
 
-        String secondResult = game.movePlayer("Pluto", 2, 2);
+        String secondResult = game.movePlayer(pluto, 2, 2);
         assertEquals("Pluto tira 2, 2. Pluto muove da Partenza a 4", secondResult);
     }
 
     @Test
     public void movesPlayerIntoANewPosition() throws Exception {
-        game.addPlayer("Pippo");
+        Player pippo = new Player("Pippo");
+        Player pluto = new Player("Pluto");
 
-        String result = game.movePlayer("Pippo", 4, 2);
+        game.addPlayer(pippo);
+        game.addPlayer(pluto);
+
+
+        String result = game.movePlayer(pippo, 4, 2);
         assertEquals("Pippo tira 4, 2. Pippo muove da Partenza a 6", result);
 
-        String secondResult = game.movePlayer("Pippo", 2, 3);
+        String secondResult = game.movePlayer(pippo, 2, 3);
         assertEquals("Pippo tira 2, 3. Pippo muove da 6 a 11", secondResult);
 
     }

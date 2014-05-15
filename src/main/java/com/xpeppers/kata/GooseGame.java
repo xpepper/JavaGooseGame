@@ -5,27 +5,31 @@ import java.util.Map;
 
 public class GooseGame {
 
-    private Map<String, Integer> players = new HashMap<String, Integer>();
+    private Map<Player, Integer> players = new HashMap<Player, Integer>();
 
-    public String addPlayer(String player) {
-        if (players.keySet().contains(player))
-            return player + ": giocatore già presente";
+    public String addPlayer(Player player) {
+        if (contains(player))
+            return player.getName() + ": giocatore già presente";
 
         players.put(player, 0);
 
         return "Giocatori: " + Formatter.join(players.keySet());
     }
 
-    public String movePlayer(String player, int firstDie, int secondDie) {
+    public String movePlayer(Player player, int firstDie, int secondDie) {
         Integer currentPosition = players.get(player);
         Integer newPosition = currentPosition + (firstDie + secondDie);
         players.put(player, newPosition);
 
-        return player + " tira " + firstDie + ", " + secondDie + ". " + player + " muove da " + printPosition(currentPosition)  + " a " + newPosition;
+        return player.getName() + " tira " + firstDie + ", " + secondDie + ". " + player.getName() + " muove da " + printPosition(currentPosition) + " a " + newPosition;
     }
 
     private String printPosition(Integer currentPosition) {
-        return currentPosition==0 ? "Partenza" : currentPosition.toString();
+        return currentPosition == 0 ? "Partenza" : currentPosition.toString();
+    }
+
+    private boolean contains(Player player) {
+        return players.keySet().contains(player);
     }
 
 }
