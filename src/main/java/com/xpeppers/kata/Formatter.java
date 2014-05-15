@@ -1,16 +1,16 @@
 package com.xpeppers.kata;
 
-import java.util.List;
+import java.util.Collection;
 
 public class Formatter {
 
-    public static String print(List<String> strings) {
+    public static String join(Collection<String> strings) {
         StringBuffer buffer = new StringBuffer();
-        for (String p : strings) {
+        for (String s : strings) {
             if (buffer.length() > 0)
                 buffer.append(", ");
-    
-            buffer.append(p);
+
+            buffer.append(s);
         }
         return buffer.toString();
     }
