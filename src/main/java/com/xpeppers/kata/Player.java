@@ -42,9 +42,9 @@ public class Player {
         return previousPosition;
     }
 
-    void doMove(int firstDie, int secondDie) {
+    void doMove(Roll roll) {
         Integer currentPosition = getPosition();
-        Integer newPosition = currentPosition + (firstDie + secondDie);
+        Integer newPosition = currentPosition + roll.movements();
 
         previousPosition = currentPosition;
         position = newPosition;

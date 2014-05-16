@@ -17,8 +17,8 @@ public class Response {
         return "Giocatore sconosciuto: " + player.getName();
     }
 
-    static String moved(Player player, int firstDie, int secondDie) {
-        return player.getName() + " tira " + firstDie + ", " + secondDie + ". " + player.getName() + " muove da " + printPosition(player) + " a " + player.getPosition();
+    static String moved(Player player, Roll roll) {
+        return player.getName() + " tira " + roll + ". " + player.getName() + " muove da " + printPosition(player) + " a " + player.getPosition();
     }
 
     private static String join(Collection<Player> players) {

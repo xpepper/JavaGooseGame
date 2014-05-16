@@ -16,13 +16,13 @@ public class GooseGame {
         return Response.listActivePlayers(players);
     }
 
-    public String movePlayer(Player player, int firstDie, int secondDie) throws Exception {
+    public String movePlayer(Player player, Roll roll) throws Exception {
         if (!contains(player))
             throw new Exception(Response.unknownPlayer(player));
 
-        player.doMove(firstDie, secondDie);
+        player.doMove(roll);
 
-        return Response.moved(player, firstDie, secondDie);
+        return Response.moved(player, roll);
     }
 
     private boolean contains(Player player) {

@@ -47,10 +47,12 @@ public class GooseGameTest {
         game.addPlayer(pippo);
         game.addPlayer(pluto);
 
-        String result = game.movePlayer(pippo, 4, 2);
+        Roll roll = Roll.dice(4,2);
+        String result = game.movePlayer(pippo, roll);
         assertEquals("Pippo tira 4, 2. Pippo muove da Partenza a 6", result);
 
-        String secondResult = game.movePlayer(pluto, 2, 2);
+        Roll anotherRoll = Roll.dice(2,2);
+        String secondResult = game.movePlayer(pluto, anotherRoll);
         assertEquals("Pluto tira 2, 2. Pluto muove da Partenza a 4", secondResult);
     }
 
@@ -62,11 +64,12 @@ public class GooseGameTest {
         game.addPlayer(pippo);
         game.addPlayer(pluto);
 
-
-        String result = game.movePlayer(pippo, 4, 2);
+        Roll roll = Roll.dice(4,2);
+        String result = game.movePlayer(pippo, roll);
         assertEquals("Pippo tira 4, 2. Pippo muove da Partenza a 6", result);
 
-        String secondResult = game.movePlayer(pippo, 2, 3);
+        Roll anotherRoll = Roll.dice(2,3);
+        String secondResult = game.movePlayer(pippo, anotherRoll);
         assertEquals("Pippo tira 2, 3. Pippo muove da 6 a 11", secondResult);
 
     }
