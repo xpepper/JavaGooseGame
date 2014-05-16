@@ -4,9 +4,11 @@ public class Player {
 
     private String name;
     private int position;
+    private int previousPosition;
 
     public Player(String name) {
         this.name = name;
+        this.previousPosition = this.position = 0;
     }
 
     public String getName() {
@@ -32,15 +34,19 @@ public class Player {
         return name;
     }
 
-    void setPosition(int position) {
-        this.position = position;
-    }
-
     Integer getPosition() {
         return position;
     }
 
-    void placeAtStartingPosition() {
-        setPosition(0);
+    Integer getPreviousPosition() {
+        return previousPosition;
+    }
+
+    void doMove(int firstDie, int secondDie) {
+        Integer currentPosition = getPosition();
+        Integer newPosition = currentPosition + (firstDie + secondDie);
+
+        previousPosition = currentPosition;
+        position = newPosition;
     }
 }

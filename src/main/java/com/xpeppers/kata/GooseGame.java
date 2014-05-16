@@ -9,28 +9,20 @@ public class GooseGame {
 
     public String addPlayer(Player player) {
         if (contains(player))
-            return player.getName() + ": giocatore già presente";
+            return Response.alreadyPresent(player);
 
-        player.placeAtStartingPosition();
         players.add(player);
 
-        return "Giocatori: " + Formatter.join(players);
+        return Response.listActivePlayers(players);
     }
 
     public String movePlayer(Player player, int firstDie, int secondDie) throws Exception {
         if (!contains(player))
-            throw new Exception("Giocatore sconosciuto: " + player.getName());
+            throw new Exception(Response.unknownPlayer(player));
 
-        Integer currentPosition = player.getPosition();
-        Integer newPosition = currentPosition + (firstDie + secondDie);
+        player.doMove(firstDie, secondDie);
 
-        player.setPosition(newPosition);
-
-        return player.getName() + " tira " + firstDie + ", " + secondDie + ". " + player.getName() + " muove da " + printPosition(currentPosition) + " a " + newPosition;
-    }
-
-    private String printPosition(Integer currentPosition) {
-        return currentPosition == 0 ? "Partenza" : currentPosition.toString();
+        return Response.moved(player, firstDie, secondDie);
     }
 
     private boolean contains(Player player) {
