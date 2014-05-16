@@ -1,25 +1,30 @@
 package com.xpeppers.kata;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GooseGame {
 
-    private Map<Player, Integer> players = new HashMap<Player, Integer>();
+    private List<Player> players = new ArrayList<Player>();
 
     public String addPlayer(Player player) {
         if (contains(player))
             return player.getName() + ": giocatore già presente";
 
-        players.put(player, 0);
+        player.placeAtStartingPosition();
+        players.add(player);
 
-        return "Giocatori: " + Formatter.join(players.keySet());
+        return "Giocatori: " + Formatter.join(players);
     }
 
-    public String movePlayer(Player player, int firstDie, int secondDie) {
-        Integer currentPosition = players.get(player);
+    public String movePlayer(Player player, int firstDie, int secondDie) throws Exception {
+        if (!contains(player))
+            throw new Exception("Giocatore sconosciuto: " + player.getName());
+
+        Integer currentPosition = player.getPosition();
         Integer newPosition = currentPosition + (firstDie + secondDie);
-        players.put(player, newPosition);
+
+        player.setPosition(newPosition);
 
         return player.getName() + " tira " + firstDie + ", " + secondDie + ". " + player.getName() + " muove da " + printPosition(currentPosition) + " a " + newPosition;
     }
@@ -29,7 +34,7 @@ public class GooseGame {
     }
 
     private boolean contains(Player player) {
-        return players.keySet().contains(player);
+        return players.contains(player);
     }
 
 }

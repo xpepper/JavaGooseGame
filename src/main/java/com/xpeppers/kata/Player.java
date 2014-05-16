@@ -3,6 +3,7 @@ package com.xpeppers.kata;
 public class Player {
 
     private String name;
+    private int position;
 
     public Player(String name) {
         this.name = name;
@@ -29,5 +30,17 @@ public class Player {
     @Override
     public String toString() {
         return name;
+    }
+
+    void setPosition(int position) {
+        this.position = position;
+    }
+
+    Integer getPosition() {
+        return position;
+    }
+
+    void placeAtStartingPosition() {
+        setPosition(0);
     }
 }
