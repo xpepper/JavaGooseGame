@@ -8,9 +8,14 @@ public class GooseGame {
     private List<Player> players = new ArrayList<Player>();
 
     public String addPlayer(Player player) {
+        return addPlayer(player, 0);
+    }
+
+    public String addPlayer(Player player, int initialPosition) {
         if (contains(player))
             return Response.alreadyPresent(player);
 
+        player.setPosition(initialPosition);
         players.add(player);
 
         return Response.listActivePlayers(players);
@@ -28,5 +33,6 @@ public class GooseGame {
     private boolean contains(Player player) {
         return players.contains(player);
     }
+
 
 }

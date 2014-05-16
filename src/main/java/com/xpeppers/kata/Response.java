@@ -18,7 +18,23 @@ public class Response {
     }
 
     static String moved(Player player, Roll roll) {
-        return player.getName() + " tira " + roll + ". " + player.getName() + " muove da " + printPosition(player) + " a " + player.getPosition();
+        String message = rollMessage(player, roll) + movingMessage(player);
+        if (player.hasWon())
+            message += winMessage(player);
+
+        return message;
+    }
+
+    private static String movingMessage(Player player) {
+        return player.getName() + " muove da " + printPosition(player) + " a " + player.getPosition();
+    }
+
+    private static String winMessage(Player player) {
+        return ". " + player.getName() + " vince!!";
+    }
+
+    private static String rollMessage(Player player, Roll roll) {
+        return player.getName() + " tira " + roll + ". ";
     }
 
     private static String join(Collection<Player> players) {

@@ -47,11 +47,11 @@ public class GooseGameTest {
         game.addPlayer(pippo);
         game.addPlayer(pluto);
 
-        Roll roll = Roll.dice(4,2);
+        Roll roll = Roll.dice(4, 2);
         String result = game.movePlayer(pippo, roll);
         assertEquals("Pippo tira 4, 2. Pippo muove da Partenza a 6", result);
 
-        Roll anotherRoll = Roll.dice(2,2);
+        Roll anotherRoll = Roll.dice(2, 2);
         String secondResult = game.movePlayer(pluto, anotherRoll);
         assertEquals("Pluto tira 2, 2. Pluto muove da Partenza a 4", secondResult);
     }
@@ -64,14 +64,23 @@ public class GooseGameTest {
         game.addPlayer(pippo);
         game.addPlayer(pluto);
 
-        Roll roll = Roll.dice(4,2);
+        Roll roll = Roll.dice(4, 2);
         String result = game.movePlayer(pippo, roll);
         assertEquals("Pippo tira 4, 2. Pippo muove da Partenza a 6", result);
 
-        Roll anotherRoll = Roll.dice(2,3);
+        Roll anotherRoll = Roll.dice(2, 3);
         String secondResult = game.movePlayer(pippo, anotherRoll);
         assertEquals("Pippo tira 2, 3. Pippo muove da 6 a 11", secondResult);
-
     }
 
+    @Test
+    public void playerInPosition63Wins() throws Exception {
+        Player player = new Player("Pippo");
+        game.addPlayer(player, 60);
+
+        Roll roll = Roll.dice(1, 2);
+        String result = game.movePlayer(player, roll);
+        assertEquals("Pippo tira 1, 2. Pippo muove da 60 a 63. Pippo vince!!", result);
+
+    }
 }

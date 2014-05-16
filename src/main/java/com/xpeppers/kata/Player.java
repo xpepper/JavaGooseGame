@@ -34,14 +34,9 @@ public class Player {
         return name;
     }
 
-    Integer getPosition() {
-        return position;
+    boolean hasWon() {
+        return getPosition() == 63;
     }
-
-    Integer getPreviousPosition() {
-        return previousPosition;
-    }
-
     void doMove(Roll roll) {
         Integer currentPosition = getPosition();
         Integer newPosition = currentPosition + roll.movements();
@@ -49,4 +44,17 @@ public class Player {
         previousPosition = currentPosition;
         position = newPosition;
     }
+
+    Integer getPosition() {
+        return position;
+    }
+
+    void setPosition(int position) {
+        this.position = position;
+    }
+
+    Integer getPreviousPosition() {
+        return previousPosition;
+    }
+
 }
