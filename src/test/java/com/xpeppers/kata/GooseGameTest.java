@@ -55,11 +55,7 @@ public class GooseGameTest {
 
     @Test
     public void movesPlayerIntoANewPosition() throws Exception {
-        Player pippo = new Player("Pippo");
-        Player pluto = new Player("Pluto");
-
-        game.addPlayer(pippo);
-        game.addPlayer(pluto);
+        Player pippo = addPlayerToGame("Pippo");
 
         Roll roll = Roll.dice(4, 2);
         String result = game.movePlayer(pippo, roll);
@@ -112,6 +108,23 @@ public class GooseGameTest {
         game.addPlayer(player, 4);
 
         assertEquals("Pippo tira 2, 2. Pippo muove da 4 a 8", game.movePlayer(player));
+    }
+
+    @Test
+    public void gamePlaysARound() throws Exception {
+        game = new GooseGame(new DiceRoller() {
+            @Override
+            public Roll roll() {
+                return Roll.dice(2, 3);
+            }
+        });
+
+        addPlayerToGame("Pippo");
+        addPlayerToGame("Pluto");
+
+        String result = game.playRound();
+
+        assertEquals("Pippo tira 2, 3. Pippo muove da Partenza a 5\nPluto tira 2, 3. Pluto muove da Partenza a 5\n", result);
     }
 
     private Player addPlayerToGame(String name) {

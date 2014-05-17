@@ -1,6 +1,7 @@
 package com.xpeppers.kata;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class GooseGame {
@@ -47,4 +48,15 @@ public class GooseGame {
     private boolean contains(Player player) {
         return players.contains(player);
     }
+
+    public String playRound() throws Exception {
+        StringBuffer buffer = new StringBuffer();
+        for (Player p : players) {
+            buffer.append(movePlayer(p));
+            buffer.append("\n");
+        }
+        return buffer.toString();
+
+    }
+
 }
