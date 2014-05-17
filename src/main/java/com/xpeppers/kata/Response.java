@@ -18,14 +18,19 @@ public class Response {
     }
 
     static String moved(Player player, Roll roll) {
-        String message = rollMessage(player, roll) + movingMessage(player);
+        String rollMessage = rollMessage(player, roll);
+        String movingMessage = movingMessage(player);
+
+        StringBuffer message = new StringBuffer();
+        message.append(rollMessage).append(movingMessage);
+
         if (player.hasWon())
-            message += winMessage(player);
+            message.append(winMessage(player));
 
         if (player.hasBounced())
-            message += bounceMessage(player);
+            message.append(bounceMessage(player));
 
-        return message;
+        return message.toString();
     }
 
     private static String bounceMessage(Player player) {
@@ -33,7 +38,7 @@ public class Response {
     }
 
     private static String movingMessage(Player player) {
-        return player.getName() + " muove da " + printPosition(player) + " a " + player.candidatePosition();
+        return player.getName() + " muove da " + positionOf(player) + " a " + player.candidatePosition();
     }
 
     private static String winMessage(Player player) {
@@ -46,18 +51,17 @@ public class Response {
 
     private static String join(Collection<Player> players) {
         StringBuffer buffer = new StringBuffer();
-        for (Player s : players) {
+        for (Player each : players) {
             if (buffer.length() > 0)
                 buffer.append(", ");
 
-            buffer.append(s.getName());
+            buffer.append(each.getName());
         }
         return buffer.toString();
     }
 
-    private static String printPosition(Player player) {
-        Integer previousPosition = player.getPreviousPosition();
-        return previousPosition == 0 ? "Partenza" : previousPosition.toString();
+    public static String positionOf(Player player) {
+        return player.isInStartingPosition() ? "Partenza" : player.getPreviousPosition().toString();
     }
 
 }

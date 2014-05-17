@@ -80,4 +80,8 @@ public class Player {
         return WINNING_FIELD - (overflowPosition % WINNING_FIELD);
     }
 
+    boolean isInStartingPosition() {
+        return getPreviousPosition() == 0;
+    }
+
 }
