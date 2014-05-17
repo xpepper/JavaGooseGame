@@ -1,7 +1,6 @@
 package com.xpeppers.kata;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -42,11 +41,8 @@ public class GooseGameTest {
 
     @Test
     public void movesPlayerFromTheStartingPosition() throws Exception {
-        Player pippo = new Player("Pippo");
-        Player pluto = new Player("Pluto");
-
-        game.addPlayer(pippo);
-        game.addPlayer(pluto);
+        Player pippo = addPlayerToGame("Pippo");
+        Player pluto = addPlayerToGame("Pluto");
 
         Roll roll = Roll.dice(4, 2);
         String result = game.movePlayer(pippo, roll);
@@ -85,7 +81,6 @@ public class GooseGameTest {
     }
 
     @Test
-    @Ignore
     public void playerBounceWhenGoBeyond63() throws Exception {
         Player player = new Player("Pippo");
         game.addPlayer(player, 60);
@@ -93,6 +88,12 @@ public class GooseGameTest {
         Roll roll = Roll.dice(3, 2);
         String result = game.movePlayer(player, roll);
         assertEquals("Pippo tira 3, 2. Pippo muove da 60 a 63. Pippo Rimbalza! Pippo torna a 61", result);
+    }
+
+    private Player addPlayerToGame(String name) {
+        Player pippo = new Player(name);
+        game.addPlayer(pippo);
+        return pippo;
     }
 
 }

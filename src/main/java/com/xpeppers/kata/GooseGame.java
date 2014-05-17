@@ -6,7 +6,6 @@ import java.util.List;
 public class GooseGame {
 
     private List<Player> players = new ArrayList<Player>();
-
     public String addPlayer(Player player) {
         return addPlayer(player, 0);
     }

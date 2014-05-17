@@ -22,11 +22,18 @@ public class Response {
         if (player.hasWon())
             message += winMessage(player);
 
+        if (player.hasBounced())
+            message += bounceMessage(player);
+
         return message;
     }
 
+    private static String bounceMessage(Player player) {
+        return ". " + player.getName() + " Rimbalza! " + player.getName() + " torna a " + player.getPosition();
+    }
+
     private static String movingMessage(Player player) {
-        return player.getName() + " muove da " + printPosition(player) + " a " + player.getPosition();
+        return player.getName() + " muove da " + printPosition(player) + " a " + player.candidatePosition();
     }
 
     private static String winMessage(Player player) {
