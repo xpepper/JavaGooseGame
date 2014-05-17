@@ -1,9 +1,18 @@
 package com.xpeppers.kata;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Response {
+    private static Map<Integer, String> gameFields = new HashMap<Integer, String>();
+    static {
+        for (Integer i = 0; i <= Player.WINNING_FIELD; i++) {
+            gameFields.put(i, i.toString());
+        }
+        gameFields.put(0, "Partenza");
+    }
 
     static String alreadyPresent(Player player) {
         return player.getName() + ": giocatore già presente";
@@ -30,7 +39,14 @@ public class Response {
         if (player.hasBounced())
             message.append(bounceMessage(player));
 
+        if (player.hasJumped())
+            message.append(jumpMessage(player));
+
         return message.toString();
+    }
+
+    private static String jumpMessage(Player player) {
+        return ". " + player.getName() + " salta al 12";
     }
 
     private static String bounceMessage(Player player) {
@@ -38,7 +54,17 @@ public class Response {
     }
 
     private static String movingMessage(Player player) {
-        return player.getName() + " muove da " + positionOf(player) + " a " + player.candidatePosition();
+        return player.getName() + " muove da " + startingPosition(player) + " a " + endingPosition(player);
+    }
+
+    public static String startingPosition(Player player) {
+        return gameFields.get(player.getPreviousPosition());
+    }
+
+    private static String endingPosition(Player player) {
+        gameFields.put(6, "Il Ponte");
+
+        return gameFields.get(player.candidatePosition());
     }
 
     private static String winMessage(Player player) {
@@ -58,10 +84,6 @@ public class Response {
             buffer.append(each.getName());
         }
         return buffer.toString();
-    }
-
-    public static String positionOf(Player player) {
-        return player.isInStartingPosition() ? "Partenza" : player.getPreviousPosition().toString();
     }
 
 }

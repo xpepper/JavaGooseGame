@@ -2,17 +2,20 @@ package com.xpeppers.kata;
 
 public class Player {
 
-    private static final int WINNING_FIELD = 63;
+    public static final int WINNING_FIELD = 63;
 
     private String name;
     private int position;
     private int previousPosition;
+
     private boolean bounced;
+    private boolean jumped;
 
     public Player(String name) {
         this.name = name;
         this.previousPosition = this.position = 0;
         this.bounced = false;
+        this.jumped = false;
     }
 
     public String getName() {
@@ -39,15 +42,21 @@ public class Player {
     }
 
     boolean hasWon() {
-        return getPosition() == Player.WINNING_FIELD;
+        return getPosition() == WINNING_FIELD;
     }
 
     boolean hasBounced() {
         return bounced;
     }
 
-    void doMove(Roll roll) {
+    boolean hasJumped() {
+        return jumped;
+    }
+
+    void move(Roll roll) {
         bounced = false;
+        jumped = false;
+
         Integer currentPosition = position;
         Integer newPosition = currentPosition + roll.movements();
 
@@ -55,12 +64,20 @@ public class Player {
             newPosition = bounceFrom(newPosition);
         }
 
+        if (newPosition == 6) {
+            jumped = true;
+            newPosition = 12;
+        }
+
         previousPosition = currentPosition;
         position = newPosition;
     }
 
     Integer candidatePosition() {
-        return hasBounced() ? WINNING_FIELD : getPosition();
+        if (hasJumped())
+           return 6;
+        else
+            return hasBounced() ? WINNING_FIELD : getPosition();
     }
 
     Integer getPosition() {
@@ -83,5 +100,6 @@ public class Player {
     boolean isInStartingPosition() {
         return getPreviousPosition() == 0;
     }
+
 
 }

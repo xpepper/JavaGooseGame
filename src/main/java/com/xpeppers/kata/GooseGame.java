@@ -40,15 +40,15 @@ public class GooseGame {
         if (!contains(player))
             throw new Exception(Response.unknownPlayer(player));
 
-        player.doMove(roll);
+        player.move(roll);
 
         return Response.moved(player, roll);
     }
 
     public String playRound() throws Exception {
         StringBuffer console = new StringBuffer();
-        for (Player p : players) {
-            String roundResult = movePlayer(p);
+        for (Player each : players) {
+            String roundResult = movePlayer(each);
             console.append(roundResult).append("\n");
         }
         return console.toString();
@@ -66,7 +66,7 @@ public class GooseGame {
         g.addPlayer(pippo);
         g.addPlayer(pluto);
 
-        while (!pippo.hasWon() && !pluto.hasWon()) {
+        while (!(pippo.hasWon() || pluto.hasWon())) {
             System.out.println(g.playRound());
         }
     }
