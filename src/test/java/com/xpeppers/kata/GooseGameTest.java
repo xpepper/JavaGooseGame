@@ -90,6 +90,16 @@ public class GooseGameTest {
         assertEquals("Pippo tira 3, 2. Pippo muove da 60 a 63. Pippo Rimbalza! Pippo torna a 61", result);
     }
 
+    @Test
+    public void bouncingIsForgottenOnceIsOccurred() throws Exception {
+        Player player = new Player("Pippo");
+        game.addPlayer(player, 60);
+
+        game.movePlayer(player, Roll.dice(3, 3));
+        String result = game.movePlayer(player, Roll.dice(1, 1));
+        assertEquals("Pippo tira 1, 1. Pippo muove da 60 a 62", result);
+    }
+
     private Player addPlayerToGame(String name) {
         Player pippo = new Player(name);
         game.addPlayer(pippo);

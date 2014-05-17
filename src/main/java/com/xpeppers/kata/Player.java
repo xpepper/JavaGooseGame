@@ -47,6 +47,7 @@ public class Player {
     }
 
     void doMove(Roll roll) {
+        bounced = false;
         Integer currentPosition = getPosition();
         Integer newPosition = currentPosition + roll.movements();
 
