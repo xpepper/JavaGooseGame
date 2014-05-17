@@ -1,7 +1,6 @@
 package com.xpeppers.kata;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class GooseGame {
@@ -33,7 +32,8 @@ public class GooseGame {
     }
 
     public String movePlayer(Player player) throws Exception {
-        return movePlayer(player, diceRoller.roll());
+        Roll roll = diceRoller.roll();
+        return movePlayer(player, roll);
     }
 
     public String movePlayer(Player player, Roll roll) throws Exception {
@@ -52,10 +52,24 @@ public class GooseGame {
     public String playRound() throws Exception {
         StringBuffer buffer = new StringBuffer();
         for (Player p : players) {
-            buffer.append(movePlayer(p));
-            buffer.append("\n");
+            buffer.append(movePlayer(p)).append("\n");
         }
         return buffer.toString();
+    }
+
+    public static void main(String[] args) throws Exception {
+        Player pippo = new Player("Pippo");
+        Player pluto = new Player("Pluto");
+
+        GooseGame g = new GooseGame();
+        g.addPlayer(pippo);
+        g.addPlayer(pluto);
+
+        while (!pippo.hasWon() && !pluto.hasWon()) {
+            System.out.println(g.playRound());
+        }
+
+
 
     }
 
