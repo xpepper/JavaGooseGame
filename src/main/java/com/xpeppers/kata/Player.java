@@ -48,7 +48,7 @@ public class Player {
 
     void doMove(Roll roll) {
         bounced = false;
-        Integer currentPosition = getPosition();
+        Integer currentPosition = position;
         Integer newPosition = currentPosition + roll.movements();
 
         if (newPosition > WINNING_FIELD) {

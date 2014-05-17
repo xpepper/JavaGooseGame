@@ -100,6 +100,15 @@ public class GooseGameTest {
         assertEquals("Pippo tira 1, 1. Pippo muove da 60 a 62", result);
     }
 
+    @Test
+    public void gameRollTheDice() throws Exception {
+        Player player = new Player("Pippo");
+        game = new GooseGame();
+        game.addPlayer(player, 4);
+
+        assertEquals("Pippo tira 1, 2. Pippo muove da 4 a 7", game.movePlayer(player));
+    }
+
     private Player addPlayerToGame(String name) {
         Player pippo = new Player(name);
         game.addPlayer(pippo);
