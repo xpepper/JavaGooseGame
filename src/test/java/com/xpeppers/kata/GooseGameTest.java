@@ -103,10 +103,15 @@ public class GooseGameTest {
     @Test
     public void gameRollTheDice() throws Exception {
         Player player = new Player("Pippo");
-        game = new GooseGame();
+        game = new GooseGame(new DiceRoller() {
+            @Override
+            public Roll roll() {
+                return Roll.dice(2, 2);
+            }
+        });
         game.addPlayer(player, 4);
 
-        assertEquals("Pippo tira 1, 2. Pippo muove da 4 a 7", game.movePlayer(player));
+        assertEquals("Pippo tira 2, 2. Pippo muove da 4 a 8", game.movePlayer(player));
     }
 
     private Player addPlayerToGame(String name) {

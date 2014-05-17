@@ -5,7 +5,17 @@ import java.util.List;
 
 public class GooseGame {
 
-    private List<Player> players = new ArrayList<Player>();
+    private List<Player> players;
+    private DiceRoller diceRoller;
+
+    public GooseGame() {
+        this(new RandomDiceRoller());
+    }
+
+    public GooseGame(DiceRoller roller) {
+        players = new ArrayList<Player>();
+        diceRoller = roller;
+    }
 
     public String addPlayer(Player player) {
         return addPlayer(player, 0);
@@ -22,7 +32,7 @@ public class GooseGame {
     }
 
     public String movePlayer(Player player) throws Exception {
-        return movePlayer(player, Roll.dice(1, 2));
+        return movePlayer(player, diceRoller.roll());
     }
 
     public String movePlayer(Player player, Roll roll) throws Exception {
