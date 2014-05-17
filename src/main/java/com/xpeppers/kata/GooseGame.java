@@ -45,16 +45,17 @@ public class GooseGame {
         return Response.moved(player, roll);
     }
 
-    private boolean contains(Player player) {
-        return players.contains(player);
+    public String playRound() throws Exception {
+        StringBuffer console = new StringBuffer();
+        for (Player p : players) {
+            String roundResult = movePlayer(p);
+            console.append(roundResult).append("\n");
+        }
+        return console.toString();
     }
 
-    public String playRound() throws Exception {
-        StringBuffer buffer = new StringBuffer();
-        for (Player p : players) {
-            buffer.append(movePlayer(p)).append("\n");
-        }
-        return buffer.toString();
+    private boolean contains(Player player) {
+        return players.contains(player);
     }
 
     public static void main(String[] args) throws Exception {
@@ -68,9 +69,6 @@ public class GooseGame {
         while (!pippo.hasWon() && !pluto.hasWon()) {
             System.out.println(g.playRound());
         }
-
-
-
     }
 
 }
