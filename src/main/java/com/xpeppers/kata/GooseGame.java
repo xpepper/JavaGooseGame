@@ -1,5 +1,10 @@
 package com.xpeppers.kata;
 
+import static com.xpeppers.kata.Response.alreadyPresent;
+import static com.xpeppers.kata.Response.listActivePlayers;
+import static com.xpeppers.kata.Response.moved;
+import static com.xpeppers.kata.Response.unknownPlayer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +27,14 @@ public class GooseGame {
     }
 
     public String addPlayer(Player player, int startingPosition) {
-        if (contains(player))
-            return Response.alreadyPresent(player);
+        if (contains(player)) {
+            return alreadyPresent(player);
+        }
 
         player.setPosition(startingPosition);
         players.add(player);
 
-        return Response.listActivePlayers(players);
+        return listActivePlayers(players);
     }
 
     public String movePlayer(Player player) throws Exception {
@@ -37,12 +43,13 @@ public class GooseGame {
     }
 
     public String movePlayer(Player player, Roll roll) throws Exception {
-        if (!contains(player))
-            throw new Exception(Response.unknownPlayer(player));
+        if (!contains(player)) {
+            throw new Exception(unknownPlayer(player));
+        }
 
         player.move(roll);
 
-        return Response.moved(player, roll);
+        return moved(player, roll);
     }
 
     public String playRound() throws Exception {
@@ -57,18 +64,4 @@ public class GooseGame {
     private boolean contains(Player player) {
         return players.contains(player);
     }
-
-    public static void main(String[] args) throws Exception {
-        Player pippo = new Player("Pippo");
-        Player pluto = new Player("Pluto");
-
-        GooseGame g = new GooseGame();
-        g.addPlayer(pippo);
-        g.addPlayer(pluto);
-
-        while (!(pippo.hasWon() || pluto.hasWon())) {
-            System.out.println(g.playRound());
-        }
-    }
-
 }
