@@ -13,6 +13,14 @@ public class GooseGame {
     private List<Player> players;
     private DiceRoller diceRoller;
 
+    public static GooseGame withPlayers(String... playerNames) {
+        GooseGame game = new GooseGame();
+        for (String name : playerNames) {
+            game.addPlayer(new Player(name));
+        }
+        return game;
+    }
+
     public GooseGame() {
         this(new RandomDiceRoller());
     }
@@ -26,7 +34,7 @@ public class GooseGame {
         return addPlayer(player, 0);
     }
 
-    public String addPlayer(Player player, int startingPosition) {
+    String addPlayer(Player player, int startingPosition) {
         if (contains(player)) {
             return alreadyPresent(player);
         }
@@ -66,12 +74,20 @@ public class GooseGame {
 
     public List<String> run() throws Exception {
         List<String> gameLog = new ArrayList<>();
-        while (!players.get(0).hasWon()) {
+        while (!hasWinner()) {
             List<String> roundLog = playRound();
-            System.err.println(roundLog);
             gameLog.addAll(roundLog);
         }
         return gameLog;
+    }
+
+    private boolean hasWinner() {
+        for (Player player : players) {
+            if (player.hasWon()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean contains(Player player) {

@@ -1,18 +1,14 @@
 package com.xpeppers.kata;
 
+import java.util.List;
+
 public class GooseGameRunner {
 
     public static void main(String[] args) throws Exception {
-        Player pippo = new Player("Pippo");
-        Player pluto = new Player("Pluto");
+        GooseGame game = GooseGame.withPlayers("Pippo", "Pluto");
 
-        GooseGame game = new GooseGame();
-        game.addPlayer(pippo);
-        game.addPlayer(pluto);
-
-        while (!(pippo.hasWon() || pluto.hasWon())) {
-            System.out.println(game.playRound());
-        }
+        List<String> gameLog = game.run();
+        System.out.println(gameLog);
     }
 
 }
