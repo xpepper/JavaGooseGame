@@ -54,9 +54,12 @@ public class GooseGame {
 
     public List<String> playRound() throws Exception {
         List<String> roundLog = new ArrayList<>();
-        for (Player each : players) {
-            String roundResult = movePlayer(each);
+        for (Player player : players) {
+            String roundResult = movePlayer(player);
             roundLog.add(roundResult);
+            if (player.hasWon()) {
+                break;
+            }
         }
         return roundLog;
     }

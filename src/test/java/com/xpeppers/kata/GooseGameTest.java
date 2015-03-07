@@ -1,6 +1,6 @@
 package com.xpeppers.kata;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -76,6 +76,20 @@ public class GooseGameTest {
         Roll roll = Roll.dice(1, 2);
         String result = game.movePlayer(player, roll);
         assertEquals("Pippo tira 1, 2. Pippo muove da 60 a 63. Pippo vince!!", result);
+    }
+
+    @Test
+    public void theFirstPlayerWhichReachesPosition63Wins() throws Exception {
+        Player pippo = new Player("Pippo");
+        Player pluto = new Player("Pluto");
+
+        game = new GooseGame(stubRollerWithDice(1, 2));
+        game.addPlayer(pippo, 60);
+        game.addPlayer(pluto, 60);
+
+        game.playRound();
+        assertTrue(pippo.hasWon());
+        assertFalse(pluto.hasWon());
     }
 
     @Test
