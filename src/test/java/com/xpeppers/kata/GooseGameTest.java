@@ -125,8 +125,7 @@ public class GooseGameTest {
     public void gamePlaysARound() throws Exception {
         game = new GooseGame(stubRollerWithDice(2, 3));
 
-        addPlayerToGame("Pippo");
-        addPlayerToGame("Pluto");
+        addPlayersToGame("Pippo", "Pluto");
 
         List<String> roundLog = game.playRound();
 
@@ -137,8 +136,7 @@ public class GooseGameTest {
     @Test
     public void runTheGameUntilSomeoneWins() throws Exception {
         game = new GooseGame(stubRollerWithDice(3, 6));
-        addPlayerToGame("Pippo");
-        // addPlayerToGame("Pluto");
+        addPlayersToGame("Pippo", "Pluto");
 
         List<String> gameLog = game.run();
         assertEquals("Pippo tira 3, 6. Pippo muove da Partenza a 9", gameLog.get(0));
@@ -167,6 +165,12 @@ public class GooseGameTest {
         Player pippo = new Player(name);
         game.addPlayer(pippo);
         return pippo;
+    }
+
+    private void addPlayersToGame(String... names) {
+        for (String name : names) {
+            addPlayerToGame(name);
+        }
     }
 
     private String lastElementOf(List<String> list) {
