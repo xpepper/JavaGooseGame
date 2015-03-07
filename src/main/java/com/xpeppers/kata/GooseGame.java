@@ -10,6 +10,8 @@ import java.util.List;
 
 public class GooseGame {
 
+    private static final int STARTING_POSITION = 0;
+
     private List<Player> players;
     private DiceRoller diceRoller;
 
@@ -31,15 +33,15 @@ public class GooseGame {
     }
 
     public String addPlayer(Player player) {
-        return addPlayer(player, 0);
+        return addPlayer(player, STARTING_POSITION);
     }
 
-    String addPlayer(Player player, int startingPosition) {
+    String addPlayer(Player player, int initialPosition) {
         if (contains(player)) {
             return alreadyPresent(player);
         }
 
-        player.setPosition(startingPosition);
+        player.setPosition(initialPosition);
         players.add(player);
 
         return listActivePlayers(players);
