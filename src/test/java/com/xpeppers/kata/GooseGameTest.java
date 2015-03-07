@@ -1,9 +1,11 @@
 package com.xpeppers.kata;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 public class GooseGameTest {
 
@@ -99,7 +101,7 @@ public class GooseGameTest {
     @Test
     public void gameRollTheDice() throws Exception {
         Player player = new Player("Pippo");
-        game = new GooseGame(stubRollerWithDice(2,2));
+        game = new GooseGame(stubRollerWithDice(2, 2));
         game.addPlayer(player, 4);
 
         assertEquals("Pippo tira 2, 2. Pippo muove da 4 a 8", game.movePlayer(player));
@@ -107,14 +109,26 @@ public class GooseGameTest {
 
     @Test
     public void gamePlaysARound() throws Exception {
-        game = new GooseGame(stubRollerWithDice(2,3));
+        game = new GooseGame(stubRollerWithDice(2, 3));
 
         addPlayerToGame("Pippo");
         addPlayerToGame("Pluto");
 
-        String result = game.playRound();
+        List<String> roundLog = game.playRound();
 
-        assertEquals("Pippo tira 2, 3. Pippo muove da Partenza a 5\nPluto tira 2, 3. Pluto muove da Partenza a 5\n", result);
+        assertEquals("Pippo tira 2, 3. Pippo muove da Partenza a 5", roundLog.get(0));
+        assertEquals("Pluto tira 2, 3. Pluto muove da Partenza a 5", roundLog.get(1));
+    }
+
+    @Test
+    public void runTheGameUntilSomeoneWins() throws Exception {
+        game = new GooseGame(stubRollerWithDice(3, 6));
+        addPlayerToGame("Pippo");
+        // addPlayerToGame("Pluto");
+
+        List<String> gameLog = game.run();
+        assertEquals("Pippo tira 3, 6. Pippo muove da Partenza a 9", gameLog.get(0));
+        assertEquals("Pippo tira 3, 6. Pippo muove da 54 a 63. Pippo vince!!", lastElementOf(gameLog));
     }
 
     @Test
@@ -139,6 +153,13 @@ public class GooseGameTest {
         Player pippo = new Player(name);
         game.addPlayer(pippo);
         return pippo;
+    }
+
+    private String lastElementOf(List<String> list) {
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(list.size() - 1);
     }
 
 }

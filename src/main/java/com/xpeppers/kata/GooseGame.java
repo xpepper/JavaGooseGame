@@ -52,16 +52,27 @@ public class GooseGame {
         return moved(player, roll);
     }
 
-    public String playRound() throws Exception {
-        StringBuffer console = new StringBuffer();
+    public List<String> playRound() throws Exception {
+        List<String> roundLog = new ArrayList<>();
         for (Player each : players) {
             String roundResult = movePlayer(each);
-            console.append(roundResult).append("\n");
+            roundLog.add(roundResult);
         }
-        return console.toString();
+        return roundLog;
+    }
+
+    public List<String> run() throws Exception {
+        List<String> gameLog = new ArrayList<>();
+        while (!players.get(0).hasWon()) {
+            List<String> roundLog = playRound();
+            System.err.println(roundLog);
+            gameLog.addAll(roundLog);
+        }
+        return gameLog;
     }
 
     private boolean contains(Player player) {
         return players.contains(player);
     }
+
 }
